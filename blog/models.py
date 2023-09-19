@@ -27,12 +27,15 @@ class Post(models.Model):
         # verbose_name = 'پست'
         # verbose_name_plural = 'پست‌ها'
 
+
     def __str__(self):
         return " {} - {} ".format(self.title, self.id)
     
-    def snippets(self):
-        return self.content[:100] + '...'
+
+    # def snippets(self):
+    #     return self.content[:100] + '...'
     
+
     def increase_view(self):
         self.counted_views += 1
         self.save()

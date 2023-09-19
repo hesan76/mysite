@@ -2632,8 +2632,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .single-destination .thumb img {
-  width: 30%;
-  max-width: 30%
+  width: 100%;
 }
 
 .single-destination .desc {
