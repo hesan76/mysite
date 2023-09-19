@@ -10,8 +10,7 @@
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content blog-header-content col-lg-12">
 				<h1 class="text-white">
-					Dude You’re Getting
-					a Telescope
+					Dude You're Getting a Telescope
 				</h1>
 				<p class="text-white">
 					There is a moment in the life of any aspiring astronomer that it is time to buy that first
@@ -122,7 +121,7 @@
 							<!-- {{post.content|truncatechars:100}} -->
 							{{post.content|truncatewords:10}}
 						</p>
-						<a href="#" class="primary-btn">View More</a>
+						<a href="{% url 'blog:single' pid=post.id %}" class="primary-btn">View More</a>
 					</div>
 				</div>
 				{% endfor %}

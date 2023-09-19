@@ -27,7 +27,7 @@ def blog_view(request, **kwargs):
 
 def blog_single(request, pid):    
     posts = Post.objects.filter(status=1, published_date__lte = timezone.now())
-    post = get_object_or_404(posts, pk=pid, status=1)
+    post = get_object_or_404(posts, pk=pid)
     post.increase_view()
     context = {'post':post, 
                'next':posts.filter(id__gt=post.id).order_by('id').first(),
