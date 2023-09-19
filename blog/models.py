@@ -32,6 +32,11 @@ class Post(models.Model):
     
     def snippets(self):
         return self.content[:100] + '...'
+    
+    def increase_view(self):
+        self.counted_views += 1
+        self.save()
+        
 
     # SELECT * From post
     # SELECT * FROM post WHERE status = 1
