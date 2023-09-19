@@ -24,17 +24,16 @@ def blog_view(request, **kwargs):
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)
 
-def blog_single(request, pid):
-    # context = {'title':'bitcoin crashed again!', 
-    #             'content':'bitcoin was flying but now grounded as allways', 
-    #             'author': 'Hesan Adeli'}
-    # return render(request, 'blog/blog-single.html', context)
-    
-    posts = Post.objects.filter(status=1)
+
+def blog_single(request, pid):    
+    posts = Post.objects.filter(status=1, published_date__lte = timezone.now())
     post = get_object_or_404(posts, pk=pid, status=1)
     post.increase_view()
-    context = {'post':post}
+    context = {'post':post, 
+               'next':posts.filter(id__gt=post.id).order_by('id').first(),
+               'previous':posts.filter(id__lt=post.id).order_by('-id').first()}
     return render(request, 'blog/blog-single.html', context)
+
 
 def blog_search(request):
     # print(request.__dict__)
@@ -44,6 +43,7 @@ def blog_search(request):
             posts = posts.filter(content__contains=s)
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)
+
 
 def test(request):
     # posts = Post.objects.filter(status=0)
