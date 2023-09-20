@@ -1,5 +1,3 @@
-{% load blog_tags %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,35 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Form test</title>
 </head>
 
 <body>
-    <!-- {{posts}}
+    <form action="{% url 'website:test' %}" method="POST">
+        {% csrf_token %}
+        <!-- <label>name:</label>
+        <input name="sname" type="text"><br> -->
 
-    {% for post in posts %}
-        {% if post.status == 0 %}
-            <p> not published yet </p>
-        {% else %}
-            <h1>{{post.title}}</h1>
-            <p>{{post.content}}</p>
-            <small>{{post.published_date}}</small>
-        {% endif %}
-    {% endfor %} -->
-    <h1>Testing page</h1>
-    <p>test: {% totalposts%}</p>
-
-    <!-- <p>test: {% totalposts as tp %}</p> -->
-    <!-- <p>{{tp}}</p> -->
-
-    {% posts as totalposts %}
-    {% for post in totalposts %}
-        <!-- <p>{{post.content|snippet:50}}</p> -->
-        <p>{{post.title}}</p>
-    {% endfor %}
-    
-    <p>test: </p> 
-    {% popularposts %}
+        {{form.as_p}}
+        <button type="submit">submit</button>
+    </form>    
 </body>
 
 </html>
