@@ -52,3 +52,4 @@ def test(request):
     # posts = get_object_or_404(Post, pk=pid)
     # context = {'post':posts}
     return render(request, 'test.html') 
+

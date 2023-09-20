@@ -7,7 +7,6 @@ class NameForm(forms.Form):
     subject = forms.CharField(max_length=255)
     message = forms.CharField(widget=forms.Textarea)
 
-
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
@@ -15,6 +14,9 @@ class ContactForm(forms.ModelForm):
         # exclude = ['name']
         # fields = ['name', 'email']
 
+    def __init__(self, *args, **kwargs):
+        super(ContactForm, self).__init__(*args, **kwargs)
+        self.fields['subject'].required = False
 
 class NewsletterForm(forms.ModelForm):
     class Meta:
