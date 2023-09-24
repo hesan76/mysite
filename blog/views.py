@@ -4,6 +4,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
 from blog.forms import CommentForm
 from django.contrib import messages
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def blog_view(request, **kwargs):
@@ -41,15 +43,18 @@ def blog_single(request, pid):
         
     posts = Post.objects.filter(status=1, published_date__lte = timezone.now())
     post = get_object_or_404(posts, pk=pid)
-    post.increase_view()
-    comments = Comment.objects.filter(post=post.id, approved=True)
-    form = CommentForm()
-    context = {'post':post, 
-                'next':posts.filter(id__gt=post.id).order_by('id').first(),
-                'previous':posts.filter(id__lt=post.id).order_by('-id').first(),
-                'comments':comments,
-                'form':form}
-    return render(request, 'blog/blog-single.html', context)
+    if not post.login_required or request.user.is_authenticated: 
+        post.increase_view()
+        comments = Comment.objects.filter(post=post.id, approved=True)
+        form = CommentForm()
+        context = {'post':post, 
+                    'next':posts.filter(id__gt=post.id).order_by('id').first(),
+                    'previous':posts.filter(id__lt=post.id).order_by('-id').first(),
+                    'comments':comments,
+                    'form':form}
+        return render(request, 'blog/blog-single.html', context)
+    else:
+        return HttpResponseRedirect(reverse('accounts:login'))
 
 
 def blog_search(request):
