@@ -180,3 +180,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'travelistasup23@gmail.com' 
 EMAIL_HOST_PASSWORD = 'flkvzwlxwnrpffqa' # Support@2023  
  
+MAINTENANCE_MODE = True

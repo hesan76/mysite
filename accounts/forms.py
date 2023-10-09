@@ -31,7 +31,7 @@ class SignupForm(UserCreationForm):
         fields = ("username", "email", "password1", "password2")
 
     def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
+        user = super(SignupForm, self).save(commit=False)
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
@@ -40,7 +40,6 @@ class SignupForm(UserCreationForm):
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
-
 
 
 class ConfirmSetPasswordForm(SetPasswordForm):

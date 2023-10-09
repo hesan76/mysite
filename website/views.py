@@ -2,6 +2,8 @@ from django.shortcuts import render
 from website.forms import NameForm, ContactForm, NewsletterForm
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib import messages
+from django.urls import reverse
+from django.conf import settings
 
 def index_view(request):
     return render(request, 'website/index.html')
@@ -51,3 +53,8 @@ def test_view(request):
     # form = NameForm()
     form = ContactForm()
     return render(request, 'test.html', {'form': form})
+
+
+def all_urls_redirect(request):
+    if settings.MAINTENANCE_MODE:
+        return HttpResponseRedirect(reverse('maintenance_mode'))

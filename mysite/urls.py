@@ -21,6 +21,7 @@ from django.contrib.sitemaps.views import sitemap
 from website.sitemaps import StaticViewSitemap
 from blog.sitemaps import BlogSitemap
 import debug_toolbar  
+from django.contrib.auth import views as auth_views
 
 sitemaps = {
     "static": StaticViewSitemap,
@@ -40,6 +41,8 @@ urlpatterns = [
     path('robots.txt', include('robots.urls')),
     path("__debug__/", include(debug_toolbar.urls)),
     path('captcha/', include('captcha.urls')),
+    path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
 
 # static ('static', 'base / static')

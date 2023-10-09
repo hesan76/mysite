@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import SignupForm, LoginForm, PasswordResetForm, ConfirmSetPasswordForm
+from accounts.forms import SignupForm, LoginForm, PasswordResetForm
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -76,7 +76,7 @@ def password_reset_view(request):
                 token = default_token_generator.make_token(user)
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-                reset_url = reverse('accounts:password_reset_confirm', args=[uid, token])
+                reset_url = reverse('password_reset_confirm', args=[uid, token])
                 reset_url = request.build_absolute_uri(reset_url)
 
                 subject = 'Reset Password'
