@@ -1,38 +1,48 @@
 {% load static %}
 
-<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Login</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <title>Login</title>
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
-  </head>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 
-  <body class="text-center">
-    <form class="form-signin" method="POST" action="{% url 'accounts:login' %}">
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+</head>
+
+    <body class="text-center">
+      <form class="form-signin" method="POST" action="{% url 'accounts:login' %}">
         {% csrf_token %}
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Username</label>
-      <input type="text" name ="username" class="form-control" placeholder="Username" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" name="password" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-    </form>
-  </body>
+        <a href="{% url 'website:index' %}"><img class="mb-4" src="{% static 'img/logo-invert.png' %}" alt="" width="250" height="70"></a>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Username / Email" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        
+        <p>Forgot Password <a href="{% url 'accounts:password-reset' %}"> Reset Password</a></p>
+        <p>Don't have a account? <a href="{% url 'accounts:signup' %}"> Join Now</a></p>
+
+        <p class="mt-5 mb-3 text-muted">&copy; 2023-2024</p>
+      </form>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+      {% endfor %}
+      {% endif %}
+    </body>
+
 </html>
