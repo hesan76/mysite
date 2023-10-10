@@ -30,6 +30,12 @@ def login_view(request):
                 if user is not None:
                     login(request, user)
                     return redirect('/')
+                else:
+                    messages.add_message(request, messages.ERROR, 
+                                    'Please enter a correct and username password. Note that both fields may be case-sensitive!')
+            else:
+                    messages.add_message(request, messages.ERROR, 
+                                    'Please enter a correct and username password. Note that both fields may be case-sensitive!')          
         form = LoginForm()
         context = {'form':form}
         return render(request, 'accounts/login.html', context)
@@ -86,6 +92,10 @@ def password_reset_view(request):
                 send_mail(subject, message, 'travelistasup23@gmail.com', [email])
 
                 return render(request, 'accounts/password_reset_done.html', {'form': form})
+            
+            else:
+                messages.add_message(request, messages.ERROR, 'There is no user with this email!')
+                return render(request, 'accounts/password_reset.html', {'form': form})
     else:
         form = PasswordResetForm()
         return render(request, 'accounts/password_reset.html', {'form': form})
