@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-38kuhuz(to&w8f#pg7qhkyxilgg@s_)sam!vxii2h7qocjm+pf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://www.domain.ir', 'https://domain.ir', '127.0.0.1']
 
 
 # Application definition
@@ -44,13 +45,15 @@ INSTALLED_APPS = [
     'captcha',
     'django_summernote',
     'robots', 
-    'debug_toolbar',
+    # 'debug_toolbar',
     'taggit',
+    'compressor',
 
     'website.apps.WebsiteConfig',
     'blog',
     'accounts'
 ]
+
 
 # sites frameworks
 SITE_ID = 2
@@ -75,7 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -133,7 +136,6 @@ LOGIN_REDIRECT_URL = 'accounts:password_reset_confirm'
 PASSWORD_RESET_COMPLETE_URL = 'accounts:password_reset_complete'
 PASSWORD_RESET_TIMEOUT = 3600
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -160,6 +162,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
     BASE_DIR / "statics",
 ]
+
+STATICFILES_FINDERS = [
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'statics')
+COMPRESS_URL = STATIC_URL
+COMPRESS_ENABLED = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

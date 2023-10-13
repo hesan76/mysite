@@ -53,8 +53,3 @@ def test_view(request):
     # form = NameForm()
     form = ContactForm()
     return render(request, 'test.html', {'form': form})
-
-
-def all_urls_redirect(request):
-    if settings.MAINTENANCE_MODE:
-        return HttpResponseRedirect(reverse('maintenance_mode'))

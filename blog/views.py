@@ -17,7 +17,6 @@ def blog_view(request, **kwargs):
         posts = posts.filter(author__username=kwargs['author_username'])
     if kwargs.get('tag_name') != None:
         posts = posts.filter(tags__name__in=[kwargs['tag_name']])    
-        pass
 
     posts = Paginator(posts, 3)
     try:
@@ -65,6 +64,10 @@ def blog_search(request):
             posts = posts.filter(content__contains=s)
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)
+
+
+def under_construction(request):
+    return render(request, 'under_construction.html')
 
 
 def test(request):

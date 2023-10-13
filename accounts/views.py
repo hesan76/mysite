@@ -101,23 +101,3 @@ def password_reset_view(request):
         return render(request, 'accounts/password_reset.html', {'form': form})
 
 
-
-# def password_reset_confirm_view(request, uidb64, token):
-#     UserModel = get_user_model()
-#     try:
-#         uid = force_text(urlsafe_base64_decode(uidb64))
-#         user = UserModel._default_manager.get(pk=uid)
-#     except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
-#         user = None
-
-#     if user is not None and default_token_generator.check_token(user, token):
-#         if request.method == 'POST':
-#             form = ConfirmSetPasswordForm(user, request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 update_session_auth_hash(request, user)  
-#                 return render(request, 'accounts/password_reset_complete.html', {'form': form})
-#         else:
-#             form = ConfirmSetPasswordForm(user)
-
-#         return render(request, 'accounts/password_reset_confirm.html', {'form': form})
